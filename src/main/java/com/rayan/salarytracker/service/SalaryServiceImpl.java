@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.rayan.salarytracker.entity.Salary;
@@ -16,8 +18,8 @@ public class SalaryServiceImpl implements SalaryService {
     private SalaryRepository salaryRepo;
 
     @Override
-    public List<Salary> getAllSalaries() {
-        return salaryRepo.findAll();
+    public Page<Salary> getAllSalaries(Pageable page) {
+        return salaryRepo.findAll(page);
 
     }
 
