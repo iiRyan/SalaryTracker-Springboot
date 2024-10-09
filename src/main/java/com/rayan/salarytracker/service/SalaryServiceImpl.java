@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.rayan.salarytracker.entity.Salary;
+import com.rayan.salarytracker.exception.ResourceNotFoundException;
 import com.rayan.salarytracker.repository.SalaryRepository;
 
 @Service
@@ -29,7 +30,7 @@ public class SalaryServiceImpl implements SalaryService {
         if (salary.isPresent()) {
             return salary.get();
         }
-        throw new RuntimeException("Salary is not found for " + id);
+        throw new ResourceNotFoundException("Salary not found for Id: " + id);
     }
 
     @Override
