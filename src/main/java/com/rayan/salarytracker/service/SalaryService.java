@@ -9,4 +9,6 @@ public interface SalaryService {
     List<Salary> getAllSalaries();
     Salary getSalaryById(Long id);
     void deleteSalary(Long id);
+    Salary insertSalary(Salary theSalary);
+    Salary updateSalary(Long id, Salary theSalary);
 }

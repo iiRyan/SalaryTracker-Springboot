@@ -28,12 +28,29 @@ public class SalaryServiceImpl implements SalaryService {
             return salary.get();
         }
         throw new RuntimeException("Salary is not found for " + id);
-
     }
 
     @Override
     public void deleteSalary(Long id) {
         salaryRepo.deleteById(id);
+    }
+
+    @Override
+    public Salary insertSalary(Salary theSalary) {
+       return salaryRepo.save(theSalary);
+
+        
+    }
+
+    @Override
+    public Salary updateSalary(Long id,Salary theSalary) {
+        Salary existingSalary = getSalaryById(id);
+        // updating fields
+        existingSalary.setMonth(theSalary.getMonth());
+        existingSalary.setDescription(theSalary.getDescription());
+        existingSalary.setAmount(theSalary.getAmount());
+        existingSalary.setDate(theSalary.getDate());
+        return salaryRepo.save(existingSalary);
     }
 
 }

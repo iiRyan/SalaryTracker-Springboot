@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +23,7 @@ public class SalaryController {
     @Autowired
     private SalaryService salaryService;
 
-    @GetMapping("/")
+    @GetMapping
     public List<Salary> getAllSalaries(){
         return salaryService.getAllSalaries();
     }
@@ -30,8 +33,20 @@ public class SalaryController {
         return salaryService.getSalaryById(id);
     }
 
-    @DeleteMapping("/")
-    public void deleteSalaryById(@RequestParam Long id){
+    // TODO: Change return type to proper Response.
+    @DeleteMapping("/{id}")
+    public void deleteSalaryById(@PathVariable("id") Long id){
         salaryService.deleteSalary(id);
+    }
+
+    @PostMapping
+    public Salary insertSalary(@RequestBody Salary theSalary){
+        System.out.println("Inserting the salary... " + theSalary);
+        return salaryService.insertSalary(theSalary);
+    }
+    
+    @PutMapping("/{id}")
+    public Salary updateSalary(@RequestBody Salary theSalary, @PathVariable Long id){
+        return salaryService.updateSalary(id, theSalary);
     }
 }
