@@ -12,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,9 +28,11 @@ public class Salary {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(name = "month")
+    @NotBlank(message = "Month must not be empty")
     private String month;
     @Column(name = "description")
     private String description;
+    @NotBlank(message = "Amount must not be empty")
     @Column(name = "amount")
     private int amount;
     @Column(name = "date")

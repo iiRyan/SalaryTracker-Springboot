@@ -35,7 +35,8 @@ public class SalaryServiceImpl implements SalaryService {
 
     @Override
     public void deleteSalary(Long id) {
-        salaryRepo.deleteById(id);
+        Salary salary = getSalaryById(id);
+        salaryRepo.delete(salary);
     }
 
     @Override
@@ -54,6 +55,12 @@ public class SalaryServiceImpl implements SalaryService {
         existingSalary.setAmount(theSalary.getAmount());
         existingSalary.setDate(theSalary.getDate());
         return salaryRepo.save(existingSalary);
+    }
+
+    @Override
+    public List<Salary> readByMonth(String month, Pageable page) {
+     return salaryRepo.findByMonth(month, page).toList();
+        
     }
 
 }
