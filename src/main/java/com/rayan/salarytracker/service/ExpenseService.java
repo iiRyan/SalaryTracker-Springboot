@@ -8,6 +8,7 @@ public interface ExpenseService {
 
     Page<Expense> getAllExpenses(Pageable page);
 
+    Expense getExpenseById(Long id);
     Expense saveExpense(Expense expense);
 
     void deleteExpense(Long id);
