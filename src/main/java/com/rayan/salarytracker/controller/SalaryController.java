@@ -48,7 +48,6 @@ public class SalaryController {
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping
     public Salary insertSalary(@Valid @RequestBody Salary theSalary){
-        System.out.println("Inserting the salary... " + theSalary);
         return salaryService.insertSalary(theSalary);
     }
     

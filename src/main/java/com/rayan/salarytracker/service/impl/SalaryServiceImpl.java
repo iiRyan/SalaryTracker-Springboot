@@ -1,4 +1,4 @@
-package com.rayan.salarytracker.service;
+package com.rayan.salarytracker.service.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.rayan.salarytracker.entity.Salary;
 import com.rayan.salarytracker.exception.ResourceNotFoundException;
 import com.rayan.salarytracker.repository.SalaryRepository;
+import com.rayan.salarytracker.service.SalaryService;
 
 @Service
 public class SalaryServiceImpl implements SalaryService {

@@ -1,4 +1,4 @@
-package com.rayan.salarytracker.service;
+package com.rayan.salarytracker.service.impl;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +9,7 @@ import com.rayan.salarytracker.entity.UserModel;
 import com.rayan.salarytracker.exception.ItemAlreadyExistException;
 import com.rayan.salarytracker.exception.ResourceNotFoundException;
 import com.rayan.salarytracker.repository.UserRepository;
+import com.rayan.salarytracker.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
