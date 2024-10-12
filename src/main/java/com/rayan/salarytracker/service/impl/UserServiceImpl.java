@@ -2,6 +2,7 @@ package com.rayan.salarytracker.service.impl;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.rayan.salarytracker.entity.User;
@@ -16,6 +17,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder bcryEncoder;
 
     @Override
     public User createUser(UserModel user) {
@@ -24,6 +27,7 @@ public class UserServiceImpl implements UserService {
         }
         User newUser = new User();
         BeanUtils.copyProperties(user, newUser);
+        newUser.setPassword(bcryEncoder.encode(newUser.getPassword()));
         return userRepository.save(newUser);
     }
 
