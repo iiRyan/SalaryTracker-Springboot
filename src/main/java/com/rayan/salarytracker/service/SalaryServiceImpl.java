@@ -50,10 +50,10 @@ public class SalaryServiceImpl implements SalaryService {
     public Salary updateSalary(Long id,Salary theSalary) {
         Salary existingSalary = getSalaryById(id);
         // updating fields
-        existingSalary.setMonth(theSalary.getMonth());
-        existingSalary.setDescription(theSalary.getDescription());
-        existingSalary.setAmount(theSalary.getAmount());
-        existingSalary.setDate(theSalary.getDate());
+        existingSalary.setMonth(theSalary.getMonth() != null ? theSalary.getMonth() : existingSalary.getMonth());
+        existingSalary.setDescription(theSalary.getDescription() != null ? theSalary.getDescription() : existingSalary.getDescription());
+        existingSalary.setAmount(theSalary.getAmount() != 0 ? theSalary.getAmount() : existingSalary.getAmount());
+        existingSalary.setDate(theSalary.getDate() != null ? theSalary.getDate() : existingSalary.getDate());
         return salaryRepo.save(existingSalary);
     }
 

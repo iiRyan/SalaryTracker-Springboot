@@ -31,8 +31,9 @@ public class Salary {
     @NotBlank(message = "Month must not be empty")
     private String month;
     @Column(name = "description")
+    @NotBlank(message = "Description must not be empty")
     private String description;
-    @NotBlank(message = "Amount must not be empty")
+    // @NotBlank(message = "Amount must not be empty")
     @Column(name = "amount")
     private int amount;
     @Column(name = "date")
