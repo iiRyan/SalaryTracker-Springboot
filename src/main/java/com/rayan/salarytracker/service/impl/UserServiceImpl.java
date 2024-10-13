@@ -35,21 +35,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User readUser(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found: " + id));
+    public User readUser() {
+        Long userId = getLoggedInUser().getId();
+        return userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found: " + userId));
     }
 
     // As of now i guess we don't need to change 'email' & 'password'.
     @Override
-    public User updateUser(Long id, UserModel theUser) {
-        User existUser = readUser(id);
+    public User updateUser(UserModel theUser) {
+        User existUser = readUser();
         existUser.setName(theUser.getName());
         return userRepository.save(existUser);
     }
 
     @Override
-    public void deleteUSer(Long id) {
-        User existUser = readUser(id);
+    public void deleteUSer() {
+        User existUser = readUser();
         userRepository.delete(existUser);
     }
 

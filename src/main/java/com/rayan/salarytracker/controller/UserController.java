@@ -23,19 +23,19 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<User> readUser(@PathVariable Long id){
-        return new ResponseEntity<User>(userService.readUser(id),HttpStatus.OK);
+    @GetMapping
+    public ResponseEntity<User> readUser(){
+        return new ResponseEntity<User>(userService.readUser(),HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@RequestBody UserModel user, @PathVariable Long id){
-        return new ResponseEntity<User>(userService.updateUser(id, user),HttpStatus.OK);
+    @PutMapping
+    public ResponseEntity<User> updateUser(@RequestBody UserModel user){
+        return new ResponseEntity<User>(userService.updateUser(user),HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deleteUser(@PathVariable Long id){
-        userService.deleteUSer(id);
+    @DeleteMapping
+    public ResponseEntity<HttpStatus> deleteUser(){
+        userService.deleteUSer();
         return new ResponseEntity<HttpStatus>(HttpStatus.NO_CONTENT);
     }
 }

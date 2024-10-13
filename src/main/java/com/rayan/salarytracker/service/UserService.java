@@ -6,9 +6,9 @@ import com.rayan.salarytracker.entity.UserModel;
 public interface UserService {
 
     User createUser(UserModel user);
-    User readUser(Long id);
-    User updateUser(Long id,UserModel theUser);
-    void deleteUSer(Long id);
+    User readUser();
+    User updateUser(UserModel theUser);
+    void deleteUSer();
     User getLoggedInUser();
 
 }
