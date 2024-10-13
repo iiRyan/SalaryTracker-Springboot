@@ -17,8 +17,9 @@ public class ExpenseServiceImpl implements ExpenseService {
     private ExpenseRepository expenseRepository;
 
     @Override
-    public Page<Expense> getAllExpenses(Pageable page) {
-        return expenseRepository.findAll(page);
+    public Page<Expense> getAllExpenses(Long salaryId,Pageable page) {
+        System.out.println("Salary Id === " + salaryId);
+        return expenseRepository.findBySalaryId(salaryId,page);
     }
 
     @Override

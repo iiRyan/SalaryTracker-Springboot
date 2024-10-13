@@ -7,6 +7,8 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -54,8 +56,10 @@ public class Expense {
     ///////////////////////////////
     
     // Many Expenses mapped to a single Salary.
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    // The fetch Type set to lazy since we don't need to fetch user object with the response.
+    @ManyToOne(fetch = FetchType.LAZY, optional = false) 
     @JoinColumn(name = "salary_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE) // When delete a salary all expenses belong to that salary will be deleted.
+    @JsonIgnore
     private Salary salary;
 }

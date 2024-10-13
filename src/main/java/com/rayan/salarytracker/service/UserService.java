@@ -9,4 +9,6 @@ public interface UserService {
     User readUser(Long id);
     User updateUser(Long id,UserModel theUser);
     void deleteUSer(Long id);
+    User getLoggedInUser();
+
 }

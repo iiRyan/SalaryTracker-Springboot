@@ -30,7 +30,6 @@ public class User {
     
     private String name;
     @Column(unique = true)
-   
     @Email(message = "Please enter a valid email")
     private String email;
     @JsonIgnore

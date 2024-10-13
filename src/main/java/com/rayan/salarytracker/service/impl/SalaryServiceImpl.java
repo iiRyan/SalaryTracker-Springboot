@@ -12,22 +12,25 @@ import com.rayan.salarytracker.entity.Salary;
 import com.rayan.salarytracker.exception.ResourceNotFoundException;
 import com.rayan.salarytracker.repository.SalaryRepository;
 import com.rayan.salarytracker.service.SalaryService;
+import com.rayan.salarytracker.service.UserService;
 
 @Service
 public class SalaryServiceImpl implements SalaryService {
 
     @Autowired
     private SalaryRepository salaryRepo;
+    @Autowired
+    private UserService userService;
 
     @Override
     public Page<Salary> getAllSalaries(Pageable page) {
-        return salaryRepo.findAll(page);
+        return salaryRepo.findByUserId(userService.getLoggedInUser().getId(),page);
 
     }
 
     @Override
     public Salary getSalaryById(Long id) {
-        Optional<Salary> salary = salaryRepo.findById(id);
+        Optional<Salary> salary = salaryRepo.findByUserIdAndId(userService.getLoggedInUser().getId(),id);
         if (salary.isPresent()) {
             return salary.get();
         }
@@ -42,6 +45,7 @@ public class SalaryServiceImpl implements SalaryService {
 
     @Override
     public Salary insertSalary(Salary theSalary) {
+        theSalary.setUser(userService.getLoggedInUser());
        return salaryRepo.save(theSalary);
 
         

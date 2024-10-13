@@ -31,7 +31,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<HttpStatus> login(@RequestBody AuthModel authModel) {
       Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authModel.getEmail(), authModel.getPassword()));
-      SecurityContextHolder.getContext().setAuthentication(authentication);
+      SecurityContextHolder.getContext().setAuthentication(authentication); // here we going to save the logged in user.
       return new ResponseEntity<HttpStatus>(HttpStatus.OK);
     }
 

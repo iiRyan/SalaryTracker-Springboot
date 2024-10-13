@@ -28,9 +28,9 @@ public class ExpenseController {
     private ExpenseService expenseService;
 
 
-    @GetMapping
-    public List<Expense> getAllExpenses(Pageable page){
-        return expenseService.getAllExpenses(page).toList();
+    @GetMapping("/{id}")
+    public List<Expense> getAllExpenses(@PathVariable Long id,Pageable page){
+        return expenseService.getAllExpenses(id,page).toList();
     }
 
     @ResponseStatus(value = HttpStatus.CREATED)

@@ -6,7 +6,7 @@ import com.rayan.salarytracker.entity.*;
 
 public interface ExpenseService {
 
-    Page<Expense> getAllExpenses(Pageable page);
+    Page<Expense> getAllExpenses(Long salaryId,Pageable page);
 
     Expense getExpenseById(Long id);
     Expense saveExpense(Expense expense);

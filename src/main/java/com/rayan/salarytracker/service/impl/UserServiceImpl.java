@@ -2,6 +2,9 @@ package com.rayan.salarytracker.service.impl;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -39,15 +42,24 @@ public class UserServiceImpl implements UserService {
     // As of now i guess we don't need to change 'email' & 'password'.
     @Override
     public User updateUser(Long id, UserModel theUser) {
-       User existUser = readUser(id);
-       existUser.setName(theUser.getName());
-       return userRepository.save(existUser);
+        User existUser = readUser(id);
+        existUser.setName(theUser.getName());
+        return userRepository.save(existUser);
     }
 
     @Override
     public void deleteUSer(Long id) {
-      User existUser = readUser(id);
-      userRepository.delete(existUser);
+        User existUser = readUser(id);
+        userRepository.delete(existUser);
+    }
+
+    @Override
+    public User getLoggedInUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName(); // Get the emil.
+        System.out.println("auth ==> "+authentication.toString());
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found for the email" + email));
     }
 
 }

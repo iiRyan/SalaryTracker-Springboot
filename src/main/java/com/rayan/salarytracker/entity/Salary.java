@@ -34,7 +34,7 @@ public class Salary {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "month")
+    @Column(name = "month",unique = true)
     @NotBlank(message = "Month must not be empty")
     private String month;
     @Column(name = "description")
