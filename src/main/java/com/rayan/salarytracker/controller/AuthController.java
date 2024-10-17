@@ -7,8 +7,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +20,7 @@ import com.rayan.salarytracker.entity.AuthModel;
 import com.rayan.salarytracker.entity.JwtResponse;
 import com.rayan.salarytracker.entity.User;
 import com.rayan.salarytracker.entity.UserModel;
+import com.rayan.salarytracker.exception.GlobalExceptionHandler;
 import com.rayan.salarytracker.security.CustomUserDetailsService;
 import com.rayan.salarytracker.service.UserService;
 import com.rayan.salarytracker.util.JwtTokenUtil;
@@ -30,7 +31,7 @@ import jakarta.validation.Valid;
 @RequestMapping("/auth")
 @CrossOrigin
 public class AuthController {
-
+    
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
@@ -46,7 +47,7 @@ public class AuthController {
         // Generate jtw token
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authModel.getEmail());
         final String token = jwtTokenUtil.generateToken(userDetails);
-        
+
         return new ResponseEntity<JwtResponse>(new JwtResponse(token), HttpStatus.OK);
     }
 
