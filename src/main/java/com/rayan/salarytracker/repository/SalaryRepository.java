@@ -17,4 +17,7 @@ public interface SalaryRepository extends JpaRepository<Salary,Long> {
     Page<Salary> findByUserId(Long userId, Pageable page);
 
     Optional<Salary> findByUserIdAndId(Long userId, Long expenseId);
+
+    Optional<Salary> findByUserIdAndMonth(Long userId, String month);
+
 }

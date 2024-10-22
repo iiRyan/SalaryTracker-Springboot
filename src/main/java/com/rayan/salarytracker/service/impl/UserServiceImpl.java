@@ -1,5 +1,7 @@
 package com.rayan.salarytracker.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,6 +20,8 @@ import com.rayan.salarytracker.service.UserService;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -25,7 +29,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(UserModel user) {
+        logger.info("Creating new user with email: " + user.getEmail() + " ...");
         if (userRepository.existsByEmail(user.getEmail())) {
+            logger.info("User with email " + user.getEmail() + " already exist!");
             throw new ItemAlreadyExistException("User with email " + user.getEmail() + " already exist!");
         }
         User newUser = new User();
@@ -37,7 +43,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User readUser() {
         Long userId = getLoggedInUser().getId();
-        return userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found: " + userId));
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found: " + userId));
     }
 
     // As of now i guess we don't need to change 'email' & 'password'.
@@ -58,7 +65,7 @@ public class UserServiceImpl implements UserService {
     public User getLoggedInUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName(); // Get the emil.
-        System.out.println("auth ==> "+authentication.toString());
+        System.out.println("auth ==> " + authentication.toString());
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found for the email" + email));
     }
